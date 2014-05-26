@@ -90,6 +90,7 @@ module Mongoid
   near:       #{command[:near]}
   multiplier: #{command[:distanceMultiplier] || "N/A"}
   max:        #{command[:maxDistance] || "N/A"}
+  min:        #{command[:minDistance] || "N/A"}
   unique:     #{command[:unique].nil? ? true : command[:unique]}
   spherical:  #{command[:spherical] || false}>
 }
@@ -117,6 +118,17 @@ module Mongoid
           stats["maxDistance"]
         end
       end
+
+
+      def min_distance(value = nil)
+        if value
+          command[:minDistance] = value
+          self
+        else
+          stats["minDistance"]
+        end
+      end
+
 
       # Tell the command to calculate based on spherical distances.
       #
